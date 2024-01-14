@@ -3,43 +3,56 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div formGroupName="userData">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('userData.username').valid &&
-              signupForm.get('userData.username').touched
-            "
-            class="help-block"
-          >
-            Please enter a Valid UserName
-          </span>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !signupForm.get('userData.username').valid &&
+                signupForm.get('userData.username').touched
+              "
+            >
+              <span
+                *ngIf="
+                  signupForm.get('userData.username').errors['nameIsForBidden']
+                "
+                class="help-block"
+              >
+                This name is invalid!
+              </span>
+              <span
+                class="help-block"
+                *ngIf="signupForm.get('userData.username').errors['required']"
+              >
+                This Field is required!
+              </span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !signupForm.get('userData.email').valid &&
+                signupForm.get('userData.email').touched
+              "
+              class="help-block"
+            >
+              Please enter a Valid Email
+            </span>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="email">email</label>
-          <input
-            type="text"
-            id="email"
-            formControlName="email"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('userData.email').valid &&
-              signupForm.get('userData.email').touched
-            "
-            class="help-block"
-          >
-            Please enter a Valid Email
-          </span>
-        </div>
-      </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input type="radio" formControlName="gender" [value]="gender" />{{
@@ -49,20 +62,22 @@
         </div>
         <div formArrayName="hobbies">
           <h4>Your hobbies</h4>
-          <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
-          <div class="form-group" *ngFor="let hobbuControl of getControls(); let i = index ">
-            <input class="form-control" type="text" [formControlName]="i">
+          <button class="btn btn-default" type="button" (click)="onAddHobby()">
+            Add Hobby
+          </button>
+          <div
+            class="form-group"
+            *ngFor="let hobbuControl of getControls(); let i = index"
+          >
+            <input class="form-control" type="text" [formControlName]="i" />
           </div>
         </div>
         <span
-            *ngIf="
-              !signupForm.valid &&
-              signupForm.touched
-            "
-            class="help-block"
-          >
-            Please enter a Valid Data
-          </span>
+          *ngIf="!signupForm.valid && signupForm.touched"
+          class="help-block"
+        >
+          Please enter a Valid Data
+        </span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
