@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signupForm);
-    this.signupForm.reset()
+    this.signupForm.reset({'username': '', 'email': '', 'gender': 'male'})
   }
   onAddHobby() {
     const control = new FormControl(null, Validators.required);
