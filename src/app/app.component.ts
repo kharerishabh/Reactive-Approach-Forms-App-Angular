@@ -27,10 +27,24 @@ export class AppComponent implements OnInit {
 
     //Status Changes for track the status
     this.signupForm.statusChanges.subscribe((status) => console.log(status))
+    this.signupForm.setValue({
+      userData: {
+        'username': 'Rishabh',
+        'email': 'ris@gmail.com'
+      },
+      'gender': 'male',
+      'hobbies': []
+    })
+    this.signupForm.patchValue({
+      userData: {
+        'username': 'sakshi'
+      }
+    })
   }
 
   onSubmit() {
     console.log(this.signupForm);
+    this.signupForm.reset()
   }
   onAddHobby() {
     const control = new FormControl(null, Validators.required);
